@@ -2,6 +2,18 @@
 
 Recreación de la landing de [ChainZoku](https://chainzoku.io/) en React + TypeScript + Vite. Animaciones de scroll con GSAP/ScrollTrigger, estilos propios y recursos locales de la referencia.
 
+## Prompt de diseño y réplica
+
+[PROMPT_LANDING.md](./PROMPT_LANDING.md) contiene el prompt extenso para reproducir esta dirección visual: estructura, composición, tipografías, paleta, recursos, animaciones, interacciones, responsive, accesibilidad y criterios de aceptación. También identifica las diferencias entre la referencia y la implementación actual, y explica cómo cambiar el contenido conservando el estilo.
+
+## Repositorio y rama de trabajo
+
+- Repositorio de trabajo: [SergiCD/chainzou-replica](https://github.com/SergiCD/chainzou-replica).
+- Remoto `origin`: `https://github.com/SergiCD/chainzou-replica.git`.
+- Rama de trabajo: `main`, vinculada a `origin/main`.
+- Continuar los siguientes cambios en este repositorio y esta rama, salvo indicación expresa. Conservar los cambios ajenos y sincronizar el remoto antes de subir nuevos commits.
+- La publicación en un servicio de hosting requiere una petición específica; actualizar el repositorio no implica desplegar la web.
+
 ## Desarrollo
 
 ```sh
@@ -46,4 +58,4 @@ Los gráficos, fuentes y marca originales pertenecen a sus respectivos titulares
 - Menú móvil: bloqueo de scroll, foco y cierre.
 - Recursos gráficos sin imágenes rotas y sin scroll horizontal de página.
 
-El proyecto genera un `dist/` estático, portable a cualquier hosting para SPA. `.openai/hosting.json` identifica la vista privada de Sites.
+El proyecto genera un `dist/` estático, portable a cualquier hosting para SPA. `.openai/hosting.json` conserva un registro inicial de Sites; no significa que la web esté publicada allí.
