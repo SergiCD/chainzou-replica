@@ -1,61 +1,54 @@
-# Chainzou
+# Hyrule — The Legend of Zelda
 
-Recreación de la landing de [ChainZoku](https://chainzoku.io/) en React + TypeScript + Vite. Animaciones de scroll con GSAP/ScrollTrigger, estilos propios y recursos locales de la referencia.
+Landing en React + TypeScript + Vite dedicada a **Tears of the Kingdom**. Conserva la estructura narrativa y los patrones de movimiento estudiados en ChainZoku, con contenido en español, imágenes de Zelda y una dirección visual de piedra, verde y dorado.
 
-## Prompt de diseño y réplica
+## Ramas y desarrollo
 
-[PROMPT_LANDING.md](./PROMPT_LANDING.md) contiene el prompt extenso para reproducir esta dirección visual: estructura, composición, tipografías, paleta, recursos, animaciones, interacciones, responsive, accesibilidad y criterios de aceptación. También identifica las diferencias entre la referencia y la implementación actual, y explica cómo cambiar el contenido conservando el estilo.
-
-## Repositorio y rama de trabajo
-
-- Repositorio de trabajo: [SergiCD/chainzou-replica](https://github.com/SergiCD/chainzou-replica).
-- Remoto `origin`: `https://github.com/SergiCD/chainzou-replica.git`.
-- Rama de trabajo: `main`, vinculada a `origin/main`.
-- Continuar los siguientes cambios en este repositorio y esta rama, salvo indicación expresa. Conservar los cambios ajenos y sincronizar el remoto antes de subir nuevos commits.
-- La publicación en un servicio de hosting requiere una petición específica; actualizar el repositorio no implica desplegar la web.
-
-## Desarrollo
+- Repositorio: [SergiCD/chainzou-replica](https://github.com/SergiCD/chainzou-replica).
+- `main`: conserva la landing original inspirada en ChainZoku.
+- `feat/zelda-landing`: contiene esta versión de Zelda y es la rama de trabajo para continuarla.
+- Las dos versiones se mantienen separadas. No fusionar Zelda en `main` ni sustituir la landing original sin una petición expresa.
+- Subir cambios a GitHub no implica desplegar la web; el hosting requiere una petición específica.
+- El registro antiguo `.openai/hosting.json` no implica que esta versión esté publicada.
 
 ```sh
 npm install
 npm run dev
 ```
 
+Vista previa habitual: http://127.0.0.1:5173/
+
 ```sh
 npm run build
-npm run preview
 npm run format:check
 ```
 
-## Cambiar el contenido
+## Recorrido
 
-- `src/data/content.ts`: marca, textos, clanes, tarjetas de visión, equipo, preguntas y enlaces.
-- `src/App.tsx`: estructura y comportamiento de las secciones.
-- `src/styles.css`: tipografías, colores, composición, transiciones y responsive.
-- `public/assets/`: imágenes, tipografías y vídeos de referencia.
-- `public/assets/sources.json`: procedencia de los recursos.
-- `scripts/download-assets.mjs`: descarga reproducible de imágenes, fuentes y vídeos públicos de referencia. El SVG de la cinta se conserva directamente desde el HTML original.
+1. Portada de Hyrule con imagen panorámica, tipografía monumental y parallax.
+2. Introducción con texto que se revela progresivamente al hacer scroll.
+3. Universo: ilustraciones oficiales de Link, Zelda y Ganondorf, sello y cinta animada.
+4. Vídeo panorámico local a pantalla completa y tres fichas interactivas: cielo, tierra y abismo.
+5. Carrusel de cuatro habilidades, con imágenes y títulos editoriales.
+6. Galería de paisajes con selector y ampliación en diálogo.
+7. Carrusel horizontal de personajes.
+8. Guía con acordeón y cierre con llamada a seguir explorando.
+9. Acceso fijo al tráiler oficial, con una vista previa y enlace a YouTube.
 
-## Interacciones incluidas
+Se han retirado las redes, vídeos, personajes y enlaces de la identidad anterior, así como minting, mercados NFT, precios, whitelist y cualquier llamada a comprar. Las acciones principales recorren el contenido de esta página.
 
-Portada con nubes animadas y parallax; navegación fija con sección activa; aparición progresiva del relato; retratos cambiantes; fichas de clanes; carrusel de ocho tarjetas; vídeo de personalización; carrusel del equipo; FAQ con acordeón; tráiler y menú móvil.
+## Contenido y recursos
 
-Se respeta la preferencia de movimiento reducido. Los diálogos permiten cerrar con Escape y devuelven el foco. El menú móvil bloquea el fondo y contiene el foco del teclado.
+- `src/data/content.ts`: textos, personajes, mundos, habilidades y preguntas.
+- `src/App.tsx`: navegación, carruseles, galería, diálogos y animaciones GSAP.
+- `src/styles.css`: diseño, movimiento y adaptación móvil.
+- `public/assets/zelda/`: selección coherente de arte y capturas de **una misma entrega**. Los manifiestos en esa carpeta recogen la procedencia y resolución de los archivos.
+- `public/assets/`: las cuatro tipografías locales de la referencia siguen proporcionando el contraste entre titulares condensados y texto editorial. Los demás recursos antiguos se conservan como material de referencia, pero la página no los carga.
+- `PROMPT_LANDING.md`: documento de la fase inicial; describe la referencia estructural, no la temática actual.
+- `scripts/download-assets.mjs`: importador histórico de ChainZoku; no ejecutar para sustituir la selección actual.
 
-## Alcance
+Las imágenes y el vídeo de Zelda se sirven desde el proyecto. El vídeo solo se reproduce cuando está visible, se puede pausar y respeta el movimiento reducido. El tráiler se abre en YouTube; la vista previa del diálogo es local. La página identifica el proyecto como homenaje no oficial; arte, personajes y marcas de Zelda pertenecen a Nintendo.
 
-Esta fase reproduce la landing y conserva temporalmente la identidad de ChainZoku. Las páginas Box Reveal, Lore, My Zoku y Jumps enlazan a la web original; no se implementan minting, wallets, juego ni un editor 3D. La sección de personalización reproduce el vídeo de la referencia. El vídeo de Vimeo, la miniatura animada del tráiler y el reproductor de YouTube requieren conexión a sus servicios originales.
+## Accesibilidad
 
-La apertura de clanes se adapta a diálogos accesibles y la animación de retratos usa una secuencia de imágenes con máscara CSS. El contenido y los recursos están separados para su posterior sustitución.
-
-Los gráficos, fuentes y marca originales pertenecen a sus respectivos titulares. No se incluye una licencia sobre esos recursos.
-
-## Validación
-
-- Compilación TypeScript y build de producción.
-- Revisión visual a 1280 × 720 y 390 × 844.
-- Navegación, carrusel Vision, acordeón FAQ, diálogos de clan y cierre con Escape.
-- Menú móvil: bloqueo de scroll, foco y cierre.
-- Recursos gráficos sin imágenes rotas y sin scroll horizontal de página.
-
-El proyecto genera un `dist/` estático, portable a cualquier hosting para SPA. `.openai/hosting.json` conserva un registro inicial de Sites; no significa que la web esté publicada allí.
+Navegación por teclado, foco contenido en los diálogos y menú móvil, cierre con Escape, enlaces para saltar al contenido y estados accesibles en los selectores. Se respeta `prefers-reduced-motion`; el pie permite pausar las animaciones ambientales y el retrato tiene su propio control de pausa.

@@ -4,50 +4,61 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Instagram,
+  Compass,
   Menu,
+  Pause,
   Play,
   Plus,
-  Smile,
   X,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   brand,
-  clans,
+  characters,
   faqs,
-  links,
+  gallery,
+  powers,
   sections,
-  team,
-  vision,
+  worlds,
 } from "./data/content";
 
 gsap.registerPlugin(ScrollTrigger);
-const asset = (name: string) => `/assets/${name}`;
+const asset = (name: string) => `/assets/zelda/${name}`;
 const external = { target: "_blank", rel: "noopener noreferrer" };
 
-function SocialLinks() {
+function Crest({ className = "" }: { className?: string }) {
   return (
-    <div className="social-links">
-      <a href={links.discord} {...external} aria-label="Discord">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19.7 5.1a18 18 0 0 0-4.4-1.4l-.5 1a16.3 16.3 0 0 0-5.6 0l-.5-1a18 18 0 0 0-4.4 1.4C1.5 9.3.7 13.4 1.1 17.4a18 18 0 0 0 5.4 2.8l1.1-1.8-1.7-.9.4-.3a12.8 12.8 0 0 0 11.4 0l.4.3-1.7.9 1.1 1.8a18 18 0 0 0 5.4-2.8c.5-4.6-.8-8.6-3.2-12.3ZM8.4 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" />
-        </svg>
-      </a>
-      <a href={links.twitter} {...external} aria-label="Twitter">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M22 5.9c-.7.3-1.5.5-2.3.6a4 4 0 0 0 1.8-2.2 8 8 0 0 1-2.6 1 4 4 0 0 0-6.9 3.6A11.4 11.4 0 0 1 3.7 4.7 4 4 0 0 0 5 10.1a4 4 0 0 1-1.8-.5 4 4 0 0 0 3.2 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.8 2.8A8 8 0 0 1 2 18.2a11.3 11.3 0 0 0 17.4-9.5v-.5A8 8 0 0 0 22 5.9Z" />
-        </svg>
-      </a>
-      <a href={links.instagram} {...external} aria-label="Instagram">
-        <Instagram />
-      </a>
-      <a href={links.opensea} {...external} aria-label="OpenSea">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="m12 2 7 13h-7V2ZM10 5v10H4L10 5ZM2 17h20l-3 5H6l-4-5Z" />
-        </svg>
-      </a>
+    <svg
+      className={className}
+      viewBox="0 0 60 54"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M30 0 15 26h30L30 0ZM15 27 0 53h30L15 27ZM45 27 30 53h30L45 27Z" />
+    </svg>
+  );
+}
+function Wordmark() {
+  return (
+    <span className="wordmark">
+      <Crest />
+      <span>
+        <small>THE LEGEND OF</small>ZELDA
+      </span>
+    </span>
+  );
+}
+function Ribbon({ className }: { className: string }) {
+  return (
+    <div className={`ribbon ${className}`} aria-hidden="true">
+      <span>
+        {Array.from({ length: 8 }, (_, i) => (
+          <span key={i}>
+            HYRULE <Crest /> EXPLORE THE UNKNOWN <Crest />
+          </span>
+        ))}
+      </span>
     </div>
   );
 }
@@ -55,31 +66,43 @@ function SocialLinks() {
 export default function App() {
   const root = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
-  const teamTrack = useRef<HTMLDivElement>(null);
+  const landscapeVideo = useRef<HTMLVideoElement>(null);
+  const [filmPaused, setFilmPaused] = useState(false);
+  const [filmError, setFilmError] = useState(false);
+  const characterTrack = useRef<HTMLDivElement>(null);
+  const pendingFocus = useRef<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const [light, setLight] = useState(false);
-  const [visionIndex, setVisionIndex] = useState(0);
-  const [teamIndex, setTeamIndex] = useState(0);
-  const [teamEnd, setTeamEnd] = useState(false);
-  const [portrait, setPortrait] = useState(1);
+  const [powerIndex, setPowerIndex] = useState(0);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [characterStart, setCharacterStart] = useState(true);
+  const [characterEnd, setCharacterEnd] = useState(false);
+  const [portrait, setPortrait] = useState(0);
   const [portraitPaused, setPortraitPaused] = useState(false);
+  const [portraitHovered, setPortraitHovered] = useState(false);
+  const [motionPaused, setMotionPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [modal, setModal] = useState<
-    { type: "clan"; index: number } | { type: "trailer" } | null
+    | { type: "world"; index: number }
+    | { type: "trailer" }
+    | { type: "gallery" }
+    | null
   >(null);
-  const [customVideoError, setCustomVideoError] = useState(false);
+  const staticMotion = reducedMotion || motionPaused;
   const goTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-    setMenuOpen(false);
-    document.getElementById(id)?.focus({ preventScroll: true });
+    if (menuOpen) {
+      pendingFocus.current = id;
+      setMenuOpen(false);
+    } else {
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+      document.getElementById(id)?.focus({ preventScroll: true });
+    }
   };
 
   useLayoutEffect(() => {
@@ -106,7 +129,7 @@ export default function App() {
           scrollTrigger: {
             trigger: ".hero",
             start: "top top",
-            end: "55% top",
+            end: "65% top",
             scrub: 1,
           },
         });
@@ -120,7 +143,7 @@ export default function App() {
             scrub: 1,
           },
         });
-        gsap.to(".clouds-front", {
+        gsap.to(".hero-mist", {
           xPercent: 15,
           yPercent: -18,
           ease: "none",
@@ -132,7 +155,7 @@ export default function App() {
           },
         });
         gsap.to(".intro-word", {
-          color: "#14132d",
+          color: "#182f2a",
           stagger: 0.14,
           ease: "none",
           scrollTrigger: {
@@ -148,23 +171,37 @@ export default function App() {
             opacity: 0,
             duration: 0.85,
             ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+            scrollTrigger: { trigger: el, start: "top 92%", once: true },
           }),
         );
-        gsap.from(".zokus-portrait", {
-          scale: 1.16,
+        gsap.from(".about-art", {
+          scale: 1.1,
           rotate: -8,
           ease: "none",
           scrollTrigger: {
-            trigger: ".zokus-section",
+            trigger: ".about-section",
             start: "top bottom",
             end: "bottom top",
             scrub: 1,
           },
         });
+        gsap.fromTo(
+          ".landscape-media",
+          { yPercent: -8, scale: 1.14 },
+          {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".landscape-film",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          },
+        );
       });
     }, root);
-    const updateTheme = () => {
+    const update = () => {
       const y = window.scrollY + 100;
       const section = Array.from(
         document.querySelectorAll<HTMLElement>("[data-theme]"),
@@ -172,29 +209,61 @@ export default function App() {
         .reverse()
         .find((el) => el.offsetTop <= y);
       setLight(section?.dataset.theme === "light");
-      const current = sections
-        .map((s) => s.toLowerCase())
-        .reverse()
-        .find((id) => {
-          const el = document.getElementById(id);
-          return (
-            el && el.offsetTop <= window.scrollY + window.innerHeight * 0.45
-          );
-        });
-      setActive(current || "");
+      const current = [...sections].reverse().find(({ id }) => {
+        const el = document.getElementById(id);
+        return el && el.offsetTop <= window.scrollY + window.innerHeight * 0.45;
+      });
+      setActive(current?.id || "");
     };
-    window.addEventListener("scroll", updateTheme, { passive: true });
-    updateTheme();
-    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    let mounted = true;
+    const refresh = () => {
+      if (mounted) ScrollTrigger.refresh();
+    };
     window.addEventListener("load", refresh);
     document.fonts.ready.then(refresh);
     return () => {
+      mounted = false;
       ctx.revert();
-      window.removeEventListener("scroll", updateTheme);
+      window.removeEventListener("scroll", update);
       window.removeEventListener("load", refresh);
     };
   }, []);
-
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  useEffect(() => {
+    if (portraitPaused || portraitHovered || staticMotion) return;
+    const timer = window.setInterval(
+      () => setPortrait((i) => (i + 1) % 3),
+      2800,
+    );
+    return () => window.clearInterval(timer);
+  }, [portraitPaused, portraitHovered, staticMotion]);
+  useEffect(() => {
+    const video = landscapeVideo.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !staticMotion && !filmPaused) {
+          video.play().catch(() => {
+            /* Keep the poster when autoplay is unavailable. */
+          });
+        } else video.pause();
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(video);
+    if (staticMotion || filmPaused) video.pause();
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, [staticMotion, filmPaused, filmError]);
   useEffect(() => {
     if (!modal) return;
     const focusTarget = document.activeElement as HTMLElement | null;
@@ -207,27 +276,17 @@ export default function App() {
     };
   }, [modal]);
   useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReducedMotion(query.matches);
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-  useEffect(() => {
-    if (reducedMotion)
-      document
-        .querySelectorAll<HTMLVideoElement>("main video")
-        .forEach((video) => video.pause());
-  }, [reducedMotion]);
-  useEffect(() => {
-    if (portraitPaused || reducedMotion) return;
-    const timer = window.setInterval(
-      () => setPortrait((i) => (i % 3) + 1),
-      1400,
-    );
-    return () => window.clearInterval(timer);
-  }, [portraitPaused, reducedMotion]);
-  useEffect(() => {
-    if (!menuOpen) return;
+    if (!menuOpen) {
+      if (pendingFocus.current) {
+        const id = pendingFocus.current;
+        pendingFocus.current = null;
+        document
+          .getElementById(id)
+          ?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+        document.getElementById(id)?.focus({ preventScroll: true });
+      }
+      return;
+    }
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
@@ -237,92 +296,101 @@ export default function App() {
       ),
     );
     focusables[1]?.focus();
-    const close = (e: KeyboardEvent) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMenuOpen(false);
         toggle?.focus();
       }
       if (e.key === "Tab") {
         const index = focusables.indexOf(document.activeElement as HTMLElement);
-        const next = e.shiftKey
-          ? (index - 1 + focusables.length) % focusables.length
-          : (index + 1) % focusables.length;
         e.preventDefault();
-        focusables[next]?.focus();
+        focusables[
+          (index + (e.shiftKey ? -1 : 1) + focusables.length) %
+            focusables.length
+        ]?.focus();
       }
     };
-    window.addEventListener("keydown", close);
+    window.addEventListener("keydown", handleKey);
     return () => {
-      window.removeEventListener("keydown", close);
+      window.removeEventListener("keydown", handleKey);
       document.body.style.overflow = overflow;
-      if (document.activeElement === document.body) toggle?.focus();
+      if (!pendingFocus.current && document.activeElement === document.body)
+        toggle?.focus();
     };
-  }, [menuOpen]);
-  const changeVision = (direction: number) =>
-    setVisionIndex((i) => (i + direction + vision.length) % vision.length);
-  const moveTeam = (direction: number) => {
-    const track = teamTrack.current;
-    if (!track) return;
-    const card = track.firstElementChild as HTMLElement;
-    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+  }, [menuOpen, reducedMotion]);
+
+  const moveCharacters = (direction: number) => {
+    const track = characterTrack.current;
+    if (!track?.firstElementChild) return;
     track.scrollBy({
-      left: (card.offsetWidth + gap) * direction,
+      left:
+        ((track.firstElementChild as HTMLElement).offsetWidth +
+          (parseFloat(getComputedStyle(track).gap) || 0)) *
+        direction,
       behavior: reducedMotion ? "instant" : "smooth",
     });
   };
-  const updateTeamPosition = () => {
-    const track = teamTrack.current;
+  const updateCharacters = () => {
+    const track = characterTrack.current;
     if (track) {
-      setTeamIndex(track.scrollLeft > 2 ? 1 : 0);
-      setTeamEnd(track.scrollLeft >= track.scrollWidth - track.clientWidth - 3);
+      setCharacterStart(track.scrollLeft <= 2);
+      setCharacterEnd(
+        track.scrollLeft >= track.scrollWidth - track.clientWidth - 3,
+      );
     }
   };
+  useEffect(() => {
+    const observer = new ResizeObserver(updateCharacters);
+    if (characterTrack.current) observer.observe(characterTrack.current);
+    return () => observer.disconnect();
+  }, []);
+  const changePower = (direction: number) =>
+    setPowerIndex((i) => (i + direction + powers.length) % powers.length);
+  const changeGallery = (direction: number) =>
+    setGalleryIndex((i) => (i + direction + gallery.length) % gallery.length);
+  const navLink = ({ id, label }: { id: string; label: string }) => (
+    <a
+      key={id}
+      href={`#${id}`}
+      className={active === id ? "selected" : ""}
+      onClick={(e) => {
+        e.preventDefault();
+        goTo(id);
+      }}
+    >
+      {label}
+    </a>
+  );
 
   return (
-    <div ref={root} className="site-shell">
+    <div
+      ref={root}
+      className={`site-shell ${staticMotion ? "motion-paused" : ""}`}
+    >
       <a href="#main" className="skip-link">
-        Skip to content
+        Saltar al contenido
       </a>
       <header className={`site-header ${light && !menuOpen ? "ink" : ""}`}>
         <a
           className="header-logo"
           href="#home"
-          aria-label="ChainZoku home"
+          aria-label="Zelda, volver al inicio"
           onClick={(e) => {
             e.preventDefault();
             goTo("home");
           }}
         >
-          <img src={asset("logo.png")} alt="ChainZoku" />
+          <Wordmark />
         </a>
-        <nav className="main-nav" aria-label="Main navigation">
-          <a
-            className="selected"
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              goTo("home");
-            }}
-          >
-            Home
-          </a>
-          <a href="https://chainzoku.io/reveal/" {...external}>
-            Box Reveal
-          </a>
-          <a href="https://chainzoku.io/lore" {...external}>
-            Lore
-          </a>
-          <a href={links.customizer} {...external}>
-            My Zoku
-          </a>
-          <a href="https://chainzoku.io/jumps" {...external}>
-            Jumps
-          </a>
+        <nav className="main-nav" aria-label="Navegación principal">
+          {[sections[0], sections[1], sections[2], sections[4]].map(navLink)}
         </nav>
-        <SocialLinks />
+        <button className="header-explore" onClick={() => goTo("galeria")}>
+          Explora Hyrule <ArrowUpRight size={16} />
+        </button>
         <button
           className="menu-toggle"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-label={menuOpen ? "Cerrar navegación" : "Abrir navegación"}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -332,15 +400,17 @@ export default function App() {
       </header>
       <nav
         className={`side-nav ${light ? "ink" : ""}`}
-        aria-label="Page sections"
+        aria-label="Secciones de la página"
+        inert={menuOpen}
       >
-        {sections.map((s) => (
+        {sections.map(({ id, label }) => (
           <button
-            key={s}
-            className={active === s.toLowerCase() ? "active" : ""}
-            onClick={() => goTo(s.toLowerCase())}
+            key={id}
+            className={active === id ? "active" : ""}
+            aria-current={active === id ? "location" : undefined}
+            onClick={() => goTo(id)}
           >
-            {s}
+            {label}
           </button>
         ))}
       </nav>
@@ -348,55 +418,50 @@ export default function App() {
         <nav
           id="mobile-navigation"
           className="mobile-navigation"
-          aria-label="Mobile navigation"
+          aria-label="Navegación móvil"
         >
-          {sections.map((s, i) => (
-            <button key={s} onClick={() => goTo(s.toLowerCase())}>
+          {sections.map(({ id, label }, i) => (
+            <button key={id} onClick={() => goTo(id)}>
               <span>0{i + 1}</span>
-              {s}
+              {label}
               <ArrowUpRight />
             </button>
           ))}
-          <SocialLinks />
+          <p>UN REINO. INFINITAS HISTORIAS.</p>
         </nav>
       )}
-      <main id="main" inert={menuOpen}>
+      <main id="main" tabIndex={-1} inert={menuOpen}>
         <section
           tabIndex={-1}
           id="home"
           className="hero"
           data-theme="dark"
-          aria-label="Welcome to ChainZoku"
+          aria-label="The Legend of Zelda: Tears of the Kingdom"
         >
-          <div className="hero-sky" />
-          <div className="clouds clouds-back" aria-hidden="true">
-            <img src={asset("cloud-1.webp")} alt="" />
-            <img src={asset("cloud-2.webp")} alt="" />
-          </div>
-          <div className="hero-logo-wrap">
-            <h1>
-              <img
-                className="hero-logo"
-                src={asset("logo.png")}
-                alt="ChainZoku"
-              />
-            </h1>
-            <p className="hero-tagline">{brand.tagline}</p>
-          </div>
           <img
             className="hero-scene"
-            src={asset("hero.webp")}
-            alt="Two Zokus leaning against a vending machine in Tōdai City"
+            src={asset("hero.jpg")}
+            alt="Link contempla las islas flotantes sobre el reino de Hyrule"
             fetchPriority="high"
           />
-          <div className="clouds clouds-front" aria-hidden="true">
-            <img src={asset("cloud-2.webp")} alt="" />
-            <img src={asset("cloud-3.webp")} alt="" />
+          <div className="hero-shade" />
+          <div className="hero-logo-wrap">
+            <p className="eyebrow">THE LEGEND OF ZELDA</p>
+            <h1 className="hero-logo display">HYRULE</h1>
+            <p className="hero-tagline">{brand.tagline}</p>
+            <span className="hero-edition">
+              TEARS OF THE KINGDOM <span>✦</span> UN VIAJE SIN LÍMITES
+            </span>
+          </div>
+          <div className="hero-mist" aria-hidden="true" />
+          <div className="hero-footnote">
+            <span>01 / EL COMIENZO</span>
+            <span>VALOR · SABIDURÍA · PODER</span>
           </div>
           <button
             className="hero-scroll"
             onClick={() => goTo("intro")}
-            aria-label="Discover the story"
+            aria-label="Descubrir Hyrule"
           >
             <ArrowDown />
           </button>
@@ -408,19 +473,14 @@ export default function App() {
           data-theme="light"
         >
           <div className="intro-inner">
-            <div className="can-wrap" data-reveal>
-              <video
-                autoPlay={!reducedMotion}
-                controls={reducedMotion}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={asset("can.png")}
-                aria-label="Rotating ChainZoku can"
-              >
-                <source src={asset("can.mp4")} type="video/mp4" />
-              </video>
+            <div className="relic-wrap" data-reveal>
+              <Crest />
+              <span className="relic-ring" />
+              <p>
+                EL VALOR DE
+                <br />
+                LO DESCONOCIDO
+              </p>
             </div>
             <p className="intro-copy">
               {brand.intro.split(" ").map((word, i) => (
@@ -433,137 +493,197 @@ export default function App() {
         </section>
         <section
           tabIndex={-1}
-          id="zokus"
-          className="zokus-section"
+          id="universo"
+          className="about-section"
           data-theme="light"
         >
-          <img
-            className="zokus-ribbon"
-            src={asset("ribbon.svg")}
-            alt=""
-            aria-hidden="true"
-          />
+          <Ribbon className="about-ribbon" />
           <div
-            className="zokus-art"
-            onMouseEnter={() => setPortraitPaused(true)}
-            onMouseLeave={() => setPortraitPaused(false)}
+            className="about-art"
+            onMouseEnter={() => setPortraitHovered(true)}
+            onMouseLeave={() => setPortraitHovered(false)}
           >
+            <div className="portrait-seal" />
             <img
               key={portrait}
-              className="zokus-portrait"
-              src={asset(`zoku-${portrait}.webp`)}
-              alt="A Zoku character"
+              className="about-portrait"
+              src={asset(characters[portrait].image)}
+              alt={characters[portrait].name}
               loading="lazy"
             />
+            <button
+              className="portrait-pause"
+              onClick={() => setPortraitPaused(!portraitPaused)}
+              aria-label={
+                portraitPaused ? "Reanudar personajes" : "Pausar personajes"
+              }
+            >
+              {portraitPaused ? <Play size={16} /> : <Pause size={16} />}
+            </button>
           </div>
-          <div className="zokus-copy" data-reveal>
+          <div className="about-copy" data-reveal>
+            <p className="eyebrow">REDESCUBRE LO EXTRAORDINARIO</p>
             <h2>
-              <span className="highlight">Zokus</span>
+              Más allá de
+              <br />
+              <span className="highlight">la leyenda.</span>
             </h2>
             <p>{brand.about}</p>
-            <button className="text-link" onClick={() => goTo("clans")}>
-              Find your clan <ArrowDown />
+            <button className="text-link" onClick={() => goTo("mundos")}>
+              Elige tu horizonte <ArrowDown />
             </button>
           </div>
         </section>
         <section
-          className="bunraku-film"
-          data-theme="light"
-          aria-label="Bunraku character showcase"
+          className="landscape-film"
+          data-theme="dark"
+          aria-label="Un horizonte de islas celestes"
         >
-          <video
-            autoPlay={!reducedMotion}
-            controls={reducedMotion}
-            muted
-            loop
-            playsInline
-            preload="none"
-            poster={asset("bunraku.webp")}
-          >
-            <source src={asset("bunraku-rotation.mp4")} type="video/mp4" />
-          </video>
+          {filmError ? (
+            <img
+              className="landscape-media"
+              src={asset("world-sky.jpg")}
+              alt="El cielo y las islas flotantes de Hyrule"
+              loading="lazy"
+            />
+          ) : (
+            <video
+              className="landscape-media"
+              ref={landscapeVideo}
+              muted
+              loop
+              playsInline
+              preload="none"
+              poster={asset("world-sky.jpg")}
+              aria-label="Viaje visual por Hyrule"
+              onError={() => setFilmError(true)}
+            >
+              <source src={asset("adventure.mp4")} type="video/mp4" />
+            </video>
+          )}
+          <div>
+            <p className="eyebrow">PIÉRDETE PARA ENCONTRAR ALGO NUEVO</p>
+            <p className="display">
+              El mundo
+              <br />
+              te espera.
+            </p>
+          </div>
+          {!filmError && (
+            <button
+              className="film-control"
+              onClick={() => setFilmPaused(!filmPaused)}
+              aria-label={filmPaused ? "Reanudar paisaje" : "Pausar paisaje"}
+              aria-pressed={filmPaused}
+              disabled={staticMotion}
+            >
+              {filmPaused || staticMotion ? (
+                <Play size={16} />
+              ) : (
+                <Pause size={16} />
+              )}
+              <span>
+                {staticMotion
+                  ? "IMAGEN FIJA"
+                  : filmPaused
+                    ? "REANUDAR"
+                    : "PAUSAR"}
+              </span>
+            </button>
+          )}
+          <Crest />
         </section>
         <section
           tabIndex={-1}
-          id="clans"
-          className="clans-section"
+          id="mundos"
+          className="worlds-section"
           data-theme="dark"
         >
           <h2 className="display" data-reveal>
-            Pick
+            Tres mundos.
             <br />
-            your clan
+            Tu camino.
           </h2>
-          <div className="clan-panels">
-            {clans.map((clan, i) => (
+          <div className="world-panels">
+            {worlds.map((world, i) => (
               <button
-                className={`clan-panel clan-${i}`}
-                style={{ "--clan-color": clan.color } as React.CSSProperties}
-                key={clan.name}
-                onClick={() => setModal({ type: "clan", index: i })}
-                aria-label={`Learn more about ${clan.name}`}
+                className={`world-panel world-${i}`}
+                style={{ "--world-color": world.color } as React.CSSProperties}
+                key={world.name}
+                onClick={() => setModal({ type: "world", index: i })}
+                aria-label={`Explorar ${world.name}`}
               >
-                <img src={asset(clan.image)} alt={clan.name} loading="lazy" />
-                <span className="clan-cta">
-                  <span className="smile-badge">
-                    <Smile />
+                <img src={asset(world.image)} alt="" loading="lazy" />
+                <span className="world-label">{world.label}</span>
+                <span className="world-name display">{world.name}</span>
+                <span className="world-cta">
+                  <span className="compass-badge">
+                    <Compass />
                   </span>
-                  <span>Learn more</span>
+                  <span>
+                    Explorar <ArrowUpRight size={16} />
+                  </span>
                 </span>
-                <span className="clan-name">{clan.name}</span>
               </button>
             ))}
           </div>
         </section>
         <section
           tabIndex={-1}
-          id="vision"
-          className="vision-section section-pad"
+          id="poderes"
+          className="powers-section section-pad"
           data-theme="dark"
-          aria-label="Our vision"
+          aria-label="Las habilidades de Link"
         >
-          <div className="vision-art" data-reveal>
+          <div className="power-art" data-reveal>
             <div className="card-back card-back-one" />
             <div className="card-back card-back-two" />
-            <img
-              key={visionIndex}
-              className="vision-card"
-              src={asset(`vision-${visionIndex + 1}.webp`)}
-              alt={`${String(visionIndex + 1).padStart(2, "0")} ${vision[visionIndex][0]} vision card`}
-            />
+            <div key={powerIndex} className="power-card">
+              <img
+                src={asset(powers[powerIndex].image)}
+                alt={`Link utiliza ${powers[powerIndex].name}`}
+                loading="lazy"
+              />
+              <span className="power-card-top">
+                EL PODER DE CREAR <Crest />
+              </span>
+              <span className="power-card-word display">
+                {powers[powerIndex].word}
+              </span>
+              <span className="power-card-number">0{powerIndex + 1} / 04</span>
+            </div>
             <button
               className="round-button card-prev"
-              onClick={() => changeVision(-1)}
-              aria-label="Previous vision"
+              onClick={() => changePower(-1)}
+              aria-label="Habilidad anterior"
             >
               <ArrowLeft />
             </button>
             <button
               className="round-button card-next"
-              onClick={() => changeVision(1)}
-              aria-label="Next vision"
+              onClick={() => changePower(1)}
+              aria-label="Siguiente habilidad"
             >
               <ArrowRight />
             </button>
           </div>
-          <div className="vision-copy" aria-live="polite" aria-atomic="true">
-            <div key={visionIndex} className="vision-copy-content">
+          <div className="power-copy" aria-live="polite" aria-atomic="true">
+            <div key={powerIndex} className="power-copy-content">
+              <p className="eyebrow">LA IMAGINACIÓN ES TU MEJOR ARMA</p>
               <h2>
-                <span className="vision-number">
-                  {String(visionIndex + 1).padStart(2, "0")}
-                </span>
-                <span className="highlight">{vision[visionIndex][0]}</span>
+                <span className="power-number">0{powerIndex + 1}</span>
+                <span className="highlight">{powers[powerIndex].name}</span>
               </h2>
-              <p>{vision[visionIndex][1]}</p>
+              <p>{powers[powerIndex].description}</p>
             </div>
-            <div className="carousel-pagination" aria-label="Choose a vision">
-              {vision.map(([title], i) => (
+            <div className="carousel-pagination" aria-label="Elegir habilidad">
+              {powers.map((power, i) => (
                 <button
-                  key={title}
-                  className={i === visionIndex ? "active" : ""}
-                  aria-label={`Show ${title}`}
-                  aria-pressed={i === visionIndex}
-                  onClick={() => setVisionIndex(i)}
+                  key={power.name}
+                  className={i === powerIndex ? "active" : ""}
+                  aria-label={`Ver ${power.name}`}
+                  aria-pressed={i === powerIndex}
+                  onClick={() => setPowerIndex(i)}
                 />
               ))}
             </div>
@@ -571,101 +691,113 @@ export default function App() {
         </section>
         <section
           tabIndex={-1}
-          id="customize"
-          className="customize-section section-pad"
+          id="galeria"
+          className="gallery-section section-pad"
           data-theme="light"
         >
+          <p className="eyebrow" data-reveal>
+            POSTALES DE UN REINO IMPOSIBLE
+          </p>
           <h2 className="display" data-reveal>
-            Customize
+            Detente.
             <br />
-            your <span className="highlight">Zoku</span>
+            <span className="highlight">Mira alrededor.</span>
           </h2>
-          <a
-            className="customize-preview"
-            href={links.customizer}
-            {...external}
-            aria-label="Open the 3D Zoku customizer"
-          >
-            {!customVideoError ? (
-              <video
-                autoPlay={!reducedMotion}
-                loop
-                muted
-                playsInline
-                preload="none"
-                poster={asset("zoku-1.webp")}
-                onError={() => setCustomVideoError(true)}
+          <div className="gallery-tabs" aria-label="Elegir paisaje">
+            {gallery.map((world, i) => (
+              <button
+                key={world.name}
+                aria-pressed={galleryIndex === i}
+                onClick={() => setGalleryIndex(i)}
+                className={galleryIndex === i ? "selected" : ""}
               >
-                <source src={brand.customizationVideo} type="video/mp4" />
-              </video>
-            ) : (
-              <img src={asset("zoku-1.webp")} alt="Zoku character" />
-            )}
-            <span className="customize-label">
-              3D customisation <ArrowUpRight />
+                0{i + 1} / {world.name}
+              </button>
+            ))}
+          </div>
+          <button
+            className="gallery-preview"
+            onClick={() => setModal({ type: "gallery" })}
+            aria-label={`Ampliar paisaje: ${gallery[galleryIndex].name}`}
+          >
+            <img
+              key={galleryIndex}
+              src={asset(gallery[galleryIndex].image)}
+              alt={gallery[galleryIndex].subtitle}
+              loading="lazy"
+            />
+            <span className="gallery-label">
+              <span>{gallery[galleryIndex].subtitle}</span>
+              <span>
+                AMPLIAR <ArrowUpRight />
+              </span>
             </span>
-          </a>
+          </button>
         </section>
         <section
           tabIndex={-1}
-          id="team"
-          className="team-section section-pad"
+          id="personajes"
+          className="characters-section section-pad"
           data-theme="dark"
         >
           <div className="section-heading" data-reveal>
-            <h2 className="display">
-              The team
-              <span className="asterisk" aria-hidden="true">
-                ✳
-              </span>
-            </h2>
-            <div className="team-controls">
+            <div>
+              <p className="eyebrow">EL ALMA DE ESTA HISTORIA</p>
+              <h2 className="display">
+                Destinos
+                <br />
+                entrelazados<span className="asterisk">✦</span>
+              </h2>
+            </div>
+            <div className="character-controls">
               <button
                 className="round-button"
-                disabled={teamIndex === 0}
-                onClick={() => moveTeam(-1)}
-                aria-label="Previous team member"
+                disabled={characterStart}
+                onClick={() => moveCharacters(-1)}
+                aria-label="Personaje anterior"
               >
                 <ArrowLeft />
               </button>
               <button
                 className="round-button"
-                disabled={teamEnd}
-                onClick={() => moveTeam(1)}
-                aria-label="Next team member"
+                disabled={characterEnd}
+                onClick={() => moveCharacters(1)}
+                aria-label="Siguiente personaje"
               >
                 <ArrowRight />
               </button>
             </div>
           </div>
           <div
-            ref={teamTrack}
-            className="team-track"
-            onScroll={updateTeamPosition}
+            ref={characterTrack}
+            className="character-track"
+            onScroll={updateCharacters}
+            tabIndex={0}
+            aria-label="Personajes de Hyrule"
           >
-            {team.map(([name, role, description, url], i) => (
-              <article key={name} className="team-card">
-                <div className="team-photo">
+            {characters.map((character, i) => (
+              <article
+                key={character.name}
+                className="character-card"
+                style={
+                  {
+                    "--character-color": character.color,
+                  } as React.CSSProperties
+                }
+              >
+                <div className="character-photo">
+                  <span className="character-index">0{i + 1}</span>
                   <img
-                    src={asset(`team-${i + 1}.webp`)}
-                    alt={name}
+                    src={asset(character.image)}
+                    alt={character.name}
                     loading="lazy"
                   />
-                  {url && (
-                    <a
-                      href={url}
-                      {...external}
-                      aria-label={`${name}'s profile`}
-                    >
-                      <ArrowUpRight />
-                    </a>
-                  )}
                 </div>
                 <h3>
-                  {name}
-                  <span>{role}</span>
+                  {character.name}
+                  <span>{character.role}</span>
                 </h3>
-                <p>{description}</p>
+                <p>{character.description}</p>
               </article>
             ))}
           </div>
@@ -676,18 +808,11 @@ export default function App() {
           className="faq-section section-pad"
           data-theme="light"
         >
-          <img
-            className="faq-ribbon"
-            src={asset("ribbon.svg")}
-            alt=""
-            aria-hidden="true"
-          />
+          <Ribbon className="faq-ribbon" />
           <div className="faq-content">
+            <p className="eyebrow">ANTES DE EMPRENDER EL VIAJE</p>
             <h2 className="display" data-reveal>
-              FAQ
-              <span className="asterisk" aria-hidden="true">
-                ✳
-              </span>
+              Tu guía<span className="asterisk">✦</span>
             </h2>
             <div className="faq-list">
               {faqs.map(([question, answer], i) => (
@@ -720,84 +845,79 @@ export default function App() {
           </div>
           <img
             className="faq-character"
-            src={asset("faq.webp")}
-            alt="Decorative ChainZoku artwork"
+            src={asset("zelda.webp")}
+            alt="Ilustración de la princesa Zelda"
             loading="lazy"
           />
         </section>
         <footer className="footer-section section-pad" data-theme="dark">
           <div className="footer-main">
             <a
-              className="discord-title display"
-              href={links.discord}
-              {...external}
+              className="footer-title display"
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                goTo("home");
+              }}
             >
-              Join
+              Sigue
               <br />
-              <span>Discord</span>
+              <span>explorando.</span>
               <ArrowUpRight />
             </a>
             <img
               className="footer-character"
-              src={asset("footer.webp")}
-              alt="ChainZoku character"
+              src={asset("link.webp")}
+              alt="Link, el héroe de Hyrule"
               loading="lazy"
             />
           </div>
           <div className="footer-bottom">
             <a
               href="#home"
+              aria-label="Volver al inicio"
               onClick={(e) => {
                 e.preventDefault();
                 goTo("home");
               }}
-              aria-label="Back to top"
             >
-              <img src={asset("logo.png")} alt="ChainZoku" />
+              <Wordmark />
             </a>
-            <nav aria-label="Footer navigation">
-              <a
-                href="#home"
-                onClick={(e) => {
-                  e.preventDefault();
-                  goTo("home");
-                }}
-              >
-                Home
-              </a>
-              <a href="https://chainzoku.io/reveal/" {...external}>
-                Box Reveal
-              </a>
-              <a href="https://chainzoku.io/lore" {...external}>
-                Lore
-              </a>
-              <a href={links.customizer} {...external}>
-                My Zoku
-              </a>
-              <a href="https://chainzoku.io/jumps" {...external}>
-                Jumps
-              </a>
+            <nav aria-label="Navegación del pie">
+              {[sections[1], sections[2], sections[3]].map(navLink)}
             </nav>
-            <SocialLinks />
+            <button
+              className="motion-toggle"
+              onClick={() => setMotionPaused(!motionPaused)}
+              aria-pressed={motionPaused}
+              disabled={reducedMotion}
+            >
+              {staticMotion ? <Play size={14} /> : <Pause size={14} />}
+              {reducedMotion
+                ? "Movimiento reducido"
+                : motionPaused
+                  ? "Reanudar ambiente"
+                  : "Pausar ambiente"}
+            </button>
           </div>
-          <p className="copyright">ALL RIGHTS RESERVED — 2022–2025</p>
+          <p className="copyright">
+            UN HOMENAJE A THE LEGEND OF ZELDA · PROYECTO NO OFICIAL
+            <br />
+            Personajes, ilustraciones y marcas © Nintendo.{" "}
+            <a href="https://www.nintendo.com/sg/switch/axn7/" {...external}>
+              Fuente del arte <ArrowUpRight size={11} />
+            </a>
+          </p>
         </footer>
       </main>
       <button
         inert={menuOpen}
         className="trailer-button"
         onClick={() => setModal({ type: "trailer" })}
-        aria-label="Play the ChainZoku trailer"
+        aria-label="Ver el tráiler de Tears of the Kingdom"
       >
-        <video
-          src="https://delivery.chainzoku.io/Global/mp4/bunrakuvideo_1.mp4"
-          autoPlay={!reducedMotion}
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-        />
-        <span className="trailer-label">Play</span>
+        <img src={asset("hero.jpg")} alt="" />
+        <span className="trailer-label">Tráiler</span>
         <span className="round-button">
           <Play fill="currentColor" size={14} />
         </span>
@@ -812,55 +932,87 @@ export default function App() {
           }}
           aria-label={
             modal.type === "trailer"
-              ? "ChainZoku trailer"
-              : clans[modal.index].name
+              ? "Tráiler de Tears of the Kingdom"
+              : modal.type === "gallery"
+                ? "Galería de Hyrule"
+                : worlds[modal.index].name
           }
         >
           <button
             className="modal-close round-button"
             autoFocus
             onClick={() => setModal(null)}
-            aria-label="Close dialog"
+            aria-label="Cerrar diálogo"
           >
             <X />
           </button>
           {modal.type === "trailer" ? (
-            <>
-              <iframe
-                title="ChainZoku — Bunraku trailer"
-                src="https://www.youtube-nocookie.com/embed/s71UP-5dQ50?autoplay=1"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
+            <a
+              className="trailer-poster"
+              href="https://www.youtube.com/watch?v=uHGShqcAHlQ"
+              {...external}
+              aria-label="Abrir el tráiler oficial en YouTube"
+            >
+              <img
+                src={asset("hero.jpg")}
+                alt="Arte oficial de Tears of the Kingdom"
               />
-              <a
-                className="trailer-fallback"
-                href="https://www.youtube.com/watch?v=s71UP-5dQ50"
-                {...external}
-              >
-                Watch on YouTube <ArrowUpRight size={14} />
-              </a>
-            </>
+              <span className="trailer-poster-copy">
+                <span className="round-button">
+                  <Play fill="currentColor" />
+                </span>
+                <strong className="display">
+                  La aventura
+                  <br />
+                  te llama.
+                </strong>
+                <span>
+                  VER TRÁILER OFICIAL EN YOUTUBE <ArrowUpRight size={16} />
+                </span>
+              </span>
+            </a>
+          ) : modal.type === "gallery" ? (
+            <div className="gallery-dialog">
+              <img
+                src={asset(gallery[galleryIndex].image)}
+                alt={gallery[galleryIndex].subtitle}
+              />
+              <div className="gallery-dialog-controls">
+                <button
+                  className="round-button"
+                  onClick={() => changeGallery(-1)}
+                  aria-label="Paisaje anterior"
+                >
+                  <ArrowLeft />
+                </button>
+                <p aria-live="polite">
+                  0{galleryIndex + 1} / {gallery[galleryIndex].name}
+                </p>
+                <button
+                  className="round-button"
+                  onClick={() => changeGallery(1)}
+                  aria-label="Siguiente paisaje"
+                >
+                  <ArrowRight />
+                </button>
+              </div>
+            </div>
           ) : (
             <div
-              className="clan-detail"
-              style={{
-                background: clans[modal.index].color,
-                color: modal.index === 2 ? "var(--ink)" : "var(--paper)",
-              }}
+              className="world-detail"
+              style={{ background: worlds[modal.index].color }}
             >
-              <div className="clan-detail-outline" aria-hidden="true">
-                {clans[modal.index].name}
-              </div>
               <img
-                src={asset(clans[modal.index].image)}
-                alt={clans[modal.index].name}
+                src={asset(worlds[modal.index].image)}
+                alt={`Paisaje de ${worlds[modal.index].name}`}
               />
-              <div className="clan-detail-copy">
-                <p className="eyebrow">{clans[modal.index].subtitle}</p>
-                <h2 className="display">{clans[modal.index].name}</h2>
-                <p>{clans[modal.index].description}</p>
+              <div className="world-detail-copy">
+                <p className="eyebrow">{worlds[modal.index].label}</p>
+                <h2 className="display">{worlds[modal.index].name}</h2>
+                <h3>{worlds[modal.index].subtitle}</h3>
+                <p>{worlds[modal.index].description}</p>
                 <button className="text-link" onClick={() => setModal(null)}>
-                  Explore the clans <ArrowRight />
+                  Continuar el viaje <ArrowRight />
                 </button>
               </div>
             </div>

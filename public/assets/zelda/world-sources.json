@@ -1,0 +1,84 @@
+{
+  "description": "Official Nintendo landscape and gameplay images for the local Zelda landing prototype.",
+  "retrievedAt": "2026-09-16",
+  "rights": "The Legend of Zelda and related images © Nintendo. Official promotional screenshots; original images copied without alteration.",
+  "assets": [
+    {
+      "local": "ability-fuse.jpg",
+      "url": "https://assets.nintendo.com.au/image/upload/f_auto/q_auto/v1685336925/NAL/Articles/TLoZ%20Tears%20of%20the%20Kingdom%20-%20Tips%20and%20Tricks/Fuse",
+      "sourcePage": "https://www.nintendo.com/au/news-and-articles/get-to-know-links-four-new-abilities-in-the-legend-of-zelda-tears-of-the-kingdom/",
+      "width": 1920,
+      "height": 1080,
+      "reviewed": true
+    },
+    {
+      "local": "ability-ultrahand.jpg",
+      "url": "https://assets.nintendo.com.au/image/upload/f_auto/q_auto/v1685336919/NAL/Articles/TLoZ%20Tears%20of%20the%20Kingdom%20-%20Tips%20and%20Tricks/Ultrahand",
+      "sourcePage": "https://www.nintendo.com/au/news-and-articles/get-to-know-links-four-new-abilities-in-the-legend-of-zelda-tears-of-the-kingdom/",
+      "width": 1920,
+      "height": 1080,
+      "reviewed": true
+    },
+    {
+      "local": "ability-ascend.jpg",
+      "url": "https://assets.nintendo.com.au/image/upload/f_auto/q_auto/v1685336921/NAL/Articles/TLoZ%20Tears%20of%20the%20Kingdom%20-%20Tips%20and%20Tricks/Ascend",
+      "sourcePage": "https://www.nintendo.com/au/news-and-articles/get-to-know-links-four-new-abilities-in-the-legend-of-zelda-tears-of-the-kingdom/",
+      "width": 1920,
+      "height": 1080,
+      "reviewed": true
+    },
+    {
+      "local": "ability-recall.jpg",
+      "url": "https://assets.nintendo.com.au/image/upload/f_auto/q_auto/v1685336918/NAL/Articles/TLoZ%20Tears%20of%20the%20Kingdom%20-%20Tips%20and%20Tricks/Recall",
+      "sourcePage": "https://www.nintendo.com/au/news-and-articles/get-to-know-links-four-new-abilities-in-the-legend-of-zelda-tears-of-the-kingdom/",
+      "width": 1920,
+      "height": 1080,
+      "reviewed": true
+    },
+    {
+      "local": "world-sky.jpg",
+      "url": "https://www.nintendo.com/eu/media/images/06_screenshots/games_5/nintendo_switch_6/nswitch_thelegendofzeldatearsofthekingdom_1/NSwitch_TheLegendOfZeldaTearsOfTheKingdom_21.jpg",
+      "sourcePage": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 1920,
+      "height": 1080,
+      "description": "Link flies a constructed platform among the sky islands.",
+      "reviewed": true
+    },
+    {
+      "local": "world-surface.jpg",
+      "url": "https://www.nintendo.com/eu/media/images/06_screenshots/games_5/nintendo_switch_6/nswitch_thelegendofzeldatearsofthekingdom_1/NSwitch_TheLegendOfZeldaTearsOfTheKingdom_22.jpg",
+      "sourcePage": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 1920,
+      "height": 1080,
+      "description": "Link rides across Hyrule at sunset.",
+      "reviewed": true
+    },
+    {
+      "local": "world-depths.jpg",
+      "url": "https://www.nintendo.com/eu/media/images/06_screenshots/games_5/nintendo_switch_6/nswitch_thelegendofzeldatearsofthekingdom_1/NSwitch_TheLegendOfZeldaTearsOfTheKingdom_02.jpg",
+      "sourcePage": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 1920,
+      "height": 1080,
+      "description": "A mine in the Depths, with gloom-covered monsters, giant underground flora and a Lightroot.",
+      "reviewed": true
+    },
+    {
+      "local": "world-sky-islands.jpg",
+      "url": "https://www.nintendo.com/eu/media/images/06_screenshots/games_5/nintendo_switch_6/nswitch_thelegendofzeldatearsofthekingdom_1/NSwitch_TheLegendOfZeldaTearsOfTheKingdom_26.jpg",
+      "sourcePage": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 1920,
+      "height": 1080,
+      "description": "Link surveys the floating sky islands from a stone ledge.",
+      "reviewed": true
+    },
+    {
+      "local": "world-paraglider.jpg",
+      "url": "https://www.nintendo.com/eu/media/images/06_screenshots/games_5/nintendo_switch_6/nswitch_thelegendofzeldatearsofthekingdom_1/NSwitch_TheLegendOfZeldaTearsOfTheKingdom_09.jpg",
+      "sourcePage": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 1920,
+      "height": 1080,
+      "description": "Link paraglides above the open landscape of Hyrule.",
+      "reviewed": true
+    }
+  ]
+}

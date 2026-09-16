@@ -1,0 +1,11 @@
+{
+  "game": "The Legend of Zelda: Tears of the Kingdom",
+  "owner": "Nintendo",
+  "assets": [{
+    "file": "hero.jpg",
+    "source": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_TloZTearsOfTheKingdom_Gamepage.jpg",
+    "width": 2000,
+    "height": 1000,
+    "note": "Official Nintendo Europe key art. CSS crops towards Link on the right; original image is unmodified."
+  }]
+}

@@ -1,0 +1,33 @@
+{
+  "collection": "The Legend of Zelda: Tears of the Kingdom — official character artwork",
+  "publisher": "Nintendo",
+  "sourcePage": "https://www.nintendo.com/sg/switch/axn7/character/index.html",
+  "retrievedAt": "2026-09-16",
+  "copyright": "© Nintendo. Artwork remains the property of its respective rights holder.",
+  "assets": [
+    {
+      "file": "link.webp",
+      "character": "Link",
+      "url": "https://www.nintendo.com/sg/switch/axn7/assets/img/character/chara_link.webp",
+      "width": 3000,
+      "height": 2596,
+      "alpha": true
+    },
+    {
+      "file": "zelda.webp",
+      "character": "Zelda",
+      "url": "https://www.nintendo.com/sg/switch/axn7/assets/img/character/chara_zelda.webp",
+      "width": 1573,
+      "height": 2988,
+      "alpha": true
+    },
+    {
+      "file": "ganondorf.webp",
+      "character": "Ganondorf",
+      "url": "https://www.nintendo.com/sg/switch/axn7/assets/img/character/chara_ganondorf.webp",
+      "width": 3000,
+      "height": 2895,
+      "alpha": true
+    }
+  ]
+}
