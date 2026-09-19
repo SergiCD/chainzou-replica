@@ -2,47 +2,65 @@
 // Asset provenance is documented in public/assets/zelda/.
 export const brand = {
   name: "The Legend of Zelda",
-  tagline: "El cielo es solo el principio.",
+  tagline: "EL REINO HA CAMBIADO.",
   intro:
-    "Hay lugares que no se olvidan. Una silueta en el horizonte, el sonido del viento, un camino que todavía no has recorrido. Hyrule vuelve a abrirse ante ti. Esta vez, la aventura no termina en la tierra: continúa entre las nubes y se adentra en lo desconocido.",
+    "Hyrule vuelve a abrirse ante ti. Pero esta vez tendrás que mirar hacia arriba… y hacia abajo. Sobre las nubes, entre las ruinas y bajo la tierra, el reino esconde caminos que todavía están por descubrir.",
   about:
-    "Un reino suspendido entre su pasado y su futuro. Islas que flotan sobre las nubes, ruinas que guardan historias y una oscuridad bajo tus pies. En Tears of the Kingdom, cada desvío puede ser el comienzo de tu propia aventura.",
+    "El Hyrule que conocías ha cambiado. Hay islas sobre las nubes, ruinas que guardan secretos y un mundo entero bajo tus pies. Aquí no hay un único camino. Hay uno que todavía no has encontrado.",
 };
 export const sections = [
-  { id: "universo", label: "Universo" },
-  { id: "mundos", label: "Mundos" },
-  { id: "poderes", label: "Poderes" },
-  { id: "galeria", label: "Galería" },
-  { id: "personajes", label: "Personajes" },
-  { id: "faq", label: "Guía" },
+  {
+    id: "universo",
+    label: "Universo",
+  },
+  {
+    id: "mundos",
+    label: "Mundos",
+  },
+  {
+    id: "poderes",
+    label: "Poderes",
+  },
+  {
+    id: "galeria",
+    label: "Galería",
+  },
+  {
+    id: "personajes",
+    label: "Personajes",
+  },
+  {
+    id: "faq",
+    label: "Guía",
+  },
 ];
 export const worlds = [
   {
     name: "Cielo",
     image: "world-sky.jpg",
     color: "#7b9f9d",
-    label: "01 / Sobre las nubes",
-    subtitle: "La aventura toma altura.",
+    label: "01 / MÁS ALLÁ DEL CIELO",
+    subtitle: "EL CIELO NO ES EL LÍMITE.",
     description:
-      "Deja el suelo atrás. Las islas celestes esconden construcciones ancestrales, senderos suspendidos y perspectivas imposibles. Mira a tu alrededor, prepara el salto y descubre hasta dónde puedes llegar.",
+      "Deja el suelo atrás. Entre islas flotantes, ruinas ancestrales y caminos suspendidos, cada salto puede llevarte a un lugar que no aparecía en tu mapa.",
   },
   {
     name: "Tierra",
     image: "world-surface.jpg",
     color: "#496752",
-    label: "02 / Un reino por recorrer",
-    subtitle: "Un horizonte. Mil caminos.",
+    label: "02 / EL Hyrule QUE CONOCES",
+    subtitle: "UN REINO. INFINITOS CAMINOS.",
     description:
-      "El Hyrule que recuerdas tiene nuevas historias. Entre bosques, montañas y poblados, los pequeños encuentros dan sentido al viaje. A veces, la mejor ruta es la que todavía no aparece en tu mapa.",
+      "Hyrule sigue ahí. Bosques, montañas, pueblos y caminos que parecen familiares… hasta que decides desviarte. Porque a veces la aventura empieza cuando dejas atrás el camino marcado.",
   },
   {
     name: "Abismo",
     image: "world-depths.jpg",
     color: "#352e3c",
-    label: "03 / Bajo la superficie",
-    subtitle: "Encuentra tu propia luz.",
+    label: "03 / MÁS ALLÁ DE LA OSCURIDAD",
+    subtitle: "BAJO TUS PIES HAY OTRO MUNDO.",
     description:
-      "Bajo la tierra se extiende otro mundo. La oscuridad transforma la exploración en una búsqueda de señales, luz y orientación. Avanza con cuidado: aquí cada descubrimiento se siente distinto.",
+      "Bajo Hyrule existe otro mundo. La oscuridad cambia las reglas y cada paso cuenta. Enciende una luz, sigue una señal y descubre qué se esconde donde nunca llega el sol.",
   },
 ];
 export const gallery = worlds.map((world, i) => ({
@@ -60,79 +78,79 @@ export const powers = [
     image: "ability-ultrahand.jpg",
     word: "CONSTRUYE",
     description:
-      "Mueve, gira y une objetos para dar forma a tus ideas. Un puente improvisado, un vehículo inesperado o una solución que solo se te habría ocurrido a ti. La creatividad también es una herramienta.",
+      "Si no existe un camino, constrúyelo. Une objetos, improvisa y convierte una idea absurda en la solución perfecta.",
   },
   {
     name: "Combinación",
     image: "ability-fuse.jpg",
-    word: "IMAGINA",
+    word: "FUSIONA",
     description:
-      "Dos objetos. Una posibilidad nueva. Combina materiales con armas, escudos o flechas y experimenta con el resultado. Mira lo cotidiano de otra manera: cualquier hallazgo puede cambiar tu siguiente encuentro.",
+      "Una espada. Una roca. Una flecha. Combínalos y descubre hasta dónde puede llegar una buena idea.",
   },
   {
     name: "Infiltración",
     image: "ability-ascend.jpg",
-    word: "ASCIENDE",
+    word: "ATRAVIESA",
     description:
-      "Cuando el camino parece terminar, mira hacia arriba. Atraviesa techos y emerge al otro lado para descubrir una nueva perspectiva. El paisaje deja de ser una barrera y se convierte en una oportunidad.",
+      "¿Un techo? ¿Un obstáculo? Quizá solo sea otro camino. Atraviesa la superficie y aparece donde menos te lo esperas.",
   },
   {
     name: "Retroceso",
     image: "ability-recall.jpg",
-    word: "REBOBINA",
+    word: "VUELVE ATRÁS",
     description:
-      "Haz que un objeto recorra de nuevo su trayectoria, esta vez en sentido contrario. Observa su movimiento, encuentra el momento y transforma lo que acaba de ocurrir en tu próximo paso.",
+      "Lo que acaba de ocurrir no tiene por qué ser definitivo. Devuelve un objeto sobre sus pasos y cambia lo que viene después.",
   },
 ];
 export const characters = [
   {
     name: "Link",
-    role: "El valor de seguir",
+    role: "EL HÉROE QUE SIGUE ADELANTE",
     image: "link.webp",
     color: "#467862",
     description:
-      "Un héroe de pocas palabras y una curiosidad sin límites. Frente a un reino transformado, sus nuevas habilidades abren caminos donde antes no los había.",
+      "Link vuelve a recorrer Hyrule. El reino ha cambiado, pero su determinación sigue intacta. Esta vez, tendrá que encontrar nuevas formas de avanzar.",
   },
   {
     name: "Zelda",
-    role: "La luz de Hyrule",
+    role: "EL PASADO DE HYRULE",
     image: "zelda.webp",
     color: "#bdad77",
     description:
-      "La princesa de Hyrule mira al pasado para comprender el presente. Su vínculo con el reino está en el corazón de esta historia.",
+      "Zelda busca respuestas en la historia de Hyrule. Su pasado y el destino del reino están más unidos que nunca.",
   },
   {
     name: "Ganondorf",
-    role: "La sombra que regresa",
+    role: "EL MAL HA DESPERTADO",
     image: "ganondorf.webp",
     color: "#814c40",
     description:
-      "Una presencia antigua y amenazadora. Su regreso proyecta una sombra sobre Hyrule y pone en marcha una nueva lucha por su destino.",
+      "Una antigua amenaza ha regresado. Y esta vez, su presencia vuelve a poner el destino de Hyrule en juego.",
   },
 ];
 export const faqs = [
   [
-    "¿Qué Hyrule estamos explorando?",
-    "Esta página está dedicada al universo de The Legend of Zelda: Tears of the Kingdom. Su arte, personajes y paisajes pertenecen a una misma entrega, para que todo forme parte del mismo viaje visual.",
+    "¿QUÉ HYRULE ESTAMOS EXPLORANDO?",
+    "Esta página recorre el universo de The Legend of Zelda: Tears of the Kingdom: sus paisajes, personajes y algunas de las ideas que hacen único este Hyrule.",
   ],
   [
-    "¿Necesito conocer la historia anterior?",
-    "Puedes disfrutar de este recorrido visual sin conocer la saga. Tears of the Kingdom continúa el mundo de Breath of the Wild, pero aquí presentamos sus ideas y protagonistas de forma sencilla.",
+    "¿NECESITO CONOCER LA HISTORIA ANTERIOR?",
+    "No hace falta. Esta página está pensada como un recorrido visual por Tears of the Kingdom y presenta sus mundos, habilidades y protagonistas sin exigir que conozcas toda la historia anterior.",
   ],
   [
-    "¿Encontraré spoilers importantes?",
-    "El recorrido se centra en los paisajes, las habilidades y los personajes de la presentación del juego. Evitamos explicar giros de la historia, el final o cómo resolver los grandes misterios.",
+    "¿HAY SPOILERS?",
+    "No encontrarás grandes revelaciones de la historia. Nos centramos en el mundo, las habilidades y los personajes para que puedas explorar la página sin arruinarte los descubrimientos más importantes.",
   ],
   [
-    "¿Qué puedo explorar en esta página?",
-    "Abre las fichas de los tres mundos, recorre las cuatro habilidades, cambia de paisaje en la galería y descubre a los personajes. También puedes abrir el tráiler desde el botón de la esquina.",
+    "¿QUÉ PUEDO DESCUBRIR AQUÍ?",
+    "Explora el cielo, la tierra y el abismo. Descubre las cuatro habilidades, recorre la galería y conoce a Link, Zelda y Ganondorf. Y, si quieres ver Hyrule en movimiento, tienes el tráiler en la esquina.",
   ],
   [
-    "¿De dónde salen las imágenes?",
-    "El arte y las capturas proceden de los sitios oficiales de Nintendo para Tears of the Kingdom. Hemos reunido paisajes e ilustraciones de esta misma aventura para mantener una identidad visual coherente.",
+    "¿DE DÓNDE SALE EL ARTE?",
+    "El arte y las capturas proceden de los sitios oficiales de Nintendo para Tears of the Kingdom. Se han reunido aquí como parte de este proyecto de homenaje no oficial.",
   ],
   [
-    "¿Es una página oficial de Nintendo?",
-    "No. Es un proyecto de homenaje hecho por un fan. The Legend of Zelda y sus personajes, imágenes y marcas pertenecen a Nintendo.",
+    "¿ESTA ES UNA PÁGINA OFICIAL DE NINTENDO?",
+    "No. Es un proyecto de homenaje hecho por un fan y no está afiliado a Nintendo. The Legend of Zelda y sus personajes, imágenes y marcas pertenecen a Nintendo.",
   ],
 ];

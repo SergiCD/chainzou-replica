@@ -447,15 +447,19 @@ export default function App() {
           <div className="hero-shade" />
           <div className="hero-logo-wrap">
             <p className="eyebrow">THE LEGEND OF ZELDA</p>
-            <h1 className="hero-logo display">HYRULE</h1>
+            <h1 className="hero-logo display">
+              TEARS OF THE
+              <br />
+              KINGDOM
+            </h1>
             <p className="hero-tagline">{brand.tagline}</p>
             <span className="hero-edition">
-              TEARS OF THE KINGDOM <span>✦</span> UN VIAJE SIN LÍMITES
+              TEARS OF THE KINGDOM <span>✦</span> MÁS ALLÁ DE HYRULE
             </span>
           </div>
           <div className="hero-mist" aria-hidden="true" />
           <div className="hero-footnote">
-            <span>01 / EL COMIENZO</span>
+            <span>01 / EL VIAJE COMIENZA</span>
             <span>VALOR · SABIDURÍA · PODER</span>
           </div>
           <button
@@ -477,9 +481,9 @@ export default function App() {
               <Crest />
               <span className="relic-ring" />
               <p>
-                EL VALOR DE
+                DONDE TERMINA EL MAPA
                 <br />
-                LO DESCONOCIDO
+                COMIENZA LA AVENTURA
               </p>
             </div>
             <p className="intro-copy">
@@ -522,15 +526,15 @@ export default function App() {
             </button>
           </div>
           <div className="about-copy" data-reveal>
-            <p className="eyebrow">REDESCUBRE LO EXTRAORDINARIO</p>
+            <p className="eyebrow">EL REINO QUE CREÍAS CONOCER</p>
             <h2>
-              Más allá de
+              HYRULE
               <br />
-              <span className="highlight">la leyenda.</span>
+              <span className="highlight">DESDE OTRA PERSPECTIVA.</span>
             </h2>
             <p>{brand.about}</p>
             <button className="text-link" onClick={() => goTo("mundos")}>
-              Elige tu horizonte <ArrowDown />
+              ¿POR DÓNDE EMPIEZAS? <ArrowDown />
             </button>
           </div>
         </section>
@@ -562,12 +566,8 @@ export default function App() {
             </video>
           )}
           <div>
-            <p className="eyebrow">PIÉRDETE PARA ENCONTRAR ALGO NUEVO</p>
-            <p className="display">
-              El mundo
-              <br />
-              te espera.
-            </p>
+            <p className="eyebrow">HAY MÁS DE LO QUE PUEDES VER</p>
+            <p className="display">MIRA MÁS ALLÁ.</p>
           </div>
           {!filmError && (
             <button
@@ -600,9 +600,9 @@ export default function App() {
           data-theme="dark"
         >
           <h2 className="display" data-reveal>
-            Tres mundos.
+            TRES CAPAS.
             <br />
-            Tu camino.
+            UN SOLO HYRULE.
           </h2>
           <div className="world-panels">
             {worlds.map((world, i) => (
@@ -621,7 +621,7 @@ export default function App() {
                     <Compass />
                   </span>
                   <span>
-                    Explorar <ArrowUpRight size={16} />
+                    DESCUBRIR <ArrowUpRight size={16} />
                   </span>
                 </span>
               </button>
@@ -645,7 +645,7 @@ export default function App() {
                 loading="lazy"
               />
               <span className="power-card-top">
-                EL PODER DE CREAR <Crest />
+                HAZLO A TU MANERA <Crest />
               </span>
               <span className="power-card-word display">
                 {powers[powerIndex].word}
@@ -669,7 +669,7 @@ export default function App() {
           </div>
           <div className="power-copy" aria-live="polite" aria-atomic="true">
             <div key={powerIndex} className="power-copy-content">
-              <p className="eyebrow">LA IMAGINACIÓN ES TU MEJOR ARMA</p>
+              <p className="eyebrow">NO HAY UN SOLO CAMINO</p>
               <h2>
                 <span className="power-number">0{powerIndex + 1}</span>
                 <span className="highlight">{powers[powerIndex].name}</span>
@@ -696,12 +696,12 @@ export default function App() {
           data-theme="light"
         >
           <p className="eyebrow" data-reveal>
-            POSTALES DE UN REINO IMPOSIBLE
+            HAY UN HYRULE POR DESCUBRIR
           </p>
           <h2 className="display" data-reveal>
-            Detente.
+            MIRA BIEN.
             <br />
-            <span className="highlight">Mira alrededor.</span>
+            <span className="highlight">NO TE LO PIERDAS.</span>
           </h2>
           <div className="gallery-tabs" aria-label="Elegir paisaje">
             {gallery.map((world, i) => (
@@ -742,11 +742,11 @@ export default function App() {
         >
           <div className="section-heading" data-reveal>
             <div>
-              <p className="eyebrow">EL ALMA DE ESTA HISTORIA</p>
+              <p className="eyebrow">QUIENES DAN FORMA A LA LEYENDA</p>
               <h2 className="display">
-                Destinos
+                TRES DESTINOS.
                 <br />
-                entrelazados<span className="asterisk">✦</span>
+                UNA MISMA LEYENDA.<span className="asterisk">✦</span>
               </h2>
             </div>
             <div className="character-controls">
@@ -810,9 +810,9 @@ export default function App() {
         >
           <Ribbon className="faq-ribbon" />
           <div className="faq-content">
-            <p className="eyebrow">ANTES DE EMPRENDER EL VIAJE</p>
+            <p className="eyebrow">ANTES DE PARTIR</p>
             <h2 className="display" data-reveal>
-              Tu guía<span className="asterisk">✦</span>
+              TODO LO QUE NECESITAS SABER<span className="asterisk">✦</span>
             </h2>
             <div className="faq-list">
               {faqs.map(([question, answer], i) => (
@@ -860,9 +860,9 @@ export default function App() {
                 goTo("home");
               }}
             >
-              Sigue
+              HAY MÁS HYRULE
               <br />
-              <span>explorando.</span>
+              <span>AHÍ FUERA.</span>
               <ArrowUpRight />
             </a>
             <img
@@ -961,11 +961,7 @@ export default function App() {
                 <span className="round-button">
                   <Play fill="currentColor" />
                 </span>
-                <strong className="display">
-                  La aventura
-                  <br />
-                  te llama.
-                </strong>
+                <strong className="display">HYRULE TE ESPERA.</strong>
                 <span>
                   VER TRÁILER OFICIAL EN YOUTUBE <ArrowUpRight size={16} />
                 </span>
@@ -1012,7 +1008,7 @@ export default function App() {
                 <h3>{worlds[modal.index].subtitle}</h3>
                 <p>{worlds[modal.index].description}</p>
                 <button className="text-link" onClick={() => setModal(null)}>
-                  Continuar el viaje <ArrowRight />
+                  VOLVER A HYRULE <ArrowRight />
                 </button>
               </div>
             </div>
