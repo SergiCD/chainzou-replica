@@ -5,9 +5,10 @@ Landing en React + TypeScript + Vite dedicada a **Tears of the Kingdom**. Conser
 ## Ramas y desarrollo
 
 - Repositorio: [SergiCD/chainzou-replica](https://github.com/SergiCD/chainzou-replica).
-- `main`: conserva la landing original inspirada en ChainZoku.
-- `feat/zelda-landing`: contiene esta versión de Zelda y es la rama de trabajo para continuarla.
-- Las dos versiones se mantienen separadas. No fusionar Zelda en `main` ni sustituir la landing original sin una petición expresa.
+- `main`: contiene la landing de Zelda y es la rama de trabajo y producción para Vercel.
+- `feat/zelda-landing`: conserva la versión de Zelda anterior a su promoción a `main`.
+- `codex/chainzoku-original`: conserva la landing original inspirada en ChainZoku.
+- Las dos versiones se mantienen separadas. Los siguientes cambios de Zelda se realizan en `main`.
 - Subir cambios a GitHub no implica desplegar la web; el hosting requiere una petición específica.
 - El registro antiguo `.openai/hosting.json` no implica que esta versión esté publicada.
 

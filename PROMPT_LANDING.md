@@ -1,6 +1,6 @@
 # Prompt maestro para reproducir la landing de ChainZoku
 
-> **Documento de referencia de la fase inicial.** La réplica original se conserva en `main`. La versión con temática Zelda continúa en `feat/zelda-landing`, cuya implementación se describe en `README.md`. Las menciones a «implementación actual» en este prompt corresponden a la réplica inicial; no implican restaurar su contenido ni sus imágenes en la versión de Zelda.
+> **Documento de referencia de la fase inicial.** La réplica original se conserva en `codex/chainzoku-original`. La versión con temática Zelda continúa en `main`, cuya implementación se describe en `README.md`. Las menciones a «implementación actual» en este prompt corresponden a la réplica inicial; no implican restaurar su contenido ni sus imágenes en la versión de Zelda.
 
 > Referencia visual y funcional: <https://chainzoku.io/>. Proyecto: React + TypeScript + Vite. Este documento describe el objetivo de reproducción, la composición observada en la referencia y las adaptaciones que ya existen en este repositorio. Se ha redactado a partir del código del proyecto, su inventario de recursos y la auditoría previa del HTML, CSS, JavaScript y recursos de la referencia. Una descripción escrita no garantiza una coincidencia píxel a píxel: las capturas y la comparación de los estados de interacción forman parte del trabajo.
 
@@ -8,7 +8,7 @@
 
 - Repositorio: [SergiCD/chainzou-replica](https://github.com/SergiCD/chainzou-replica).
 - Remoto de Git: `origin`, con URL `https://github.com/SergiCD/chainzou-replica.git`.
-- Rama de la réplica original: `main`, vinculada a `origin/main`. Rama de trabajo para Zelda: `feat/zelda-landing`, vinculada a `origin/feat/zelda-landing`.
+- Rama de la réplica original: `codex/chainzoku-original`, vinculada a `origin/codex/chainzoku-original`. Rama de trabajo y producción para Zelda: `main`, vinculada a `origin/main`. `feat/zelda-landing` conserva la versión previa a su promoción.
 - Antes de editar, comprueba el estado local y el remoto. Conserva los cambios ajenos, integra cualquier avance compatible y evita sobrescribir el historial.
 - Guarda cada versión en su rama correspondiente y actualiza GitHub cuando el usuario lo solicite. Mantén ambas landings separadas. Crear otro repositorio o publicar en un servicio de hosting requiere una petición específica.
 
